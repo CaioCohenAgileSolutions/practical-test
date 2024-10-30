@@ -1,6 +1,6 @@
 <mat-toolbar>
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
+    <mat-icon (click)="drawer.toggle(); changeZIndex()">menu</mat-icon>
   </button>
   <span>My App</span>
   <span class="example-spacer"></span>
@@ -14,3 +14,26 @@
     <mat-icon>more_vert</mat-icon>
   </button>
 </mat-toolbar>
+
+<mat-drawer-container #drawerContainer
+                      class="example-container"
+                      [class.drawer-open]="drawer.opened"
+                      autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side" [opened]="false">
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <mat-icon class="user-icon">account_circle</mat-icon>
+        <div class="user-info">
+          <div class="username">Username</div>
+          <div class="user-email">user&#64;gmail.com</div>
+        </div>
+      </mat-card-header>
+      
+    </mat-card>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/">+ Home</a>
+      <a mat-list-item routerLink="/about">+ About</a>
+      <!-- Outros links conforme necessário -->
+    </mat-nav-list>
+  </mat-drawer>
+</mat-drawer-container>
