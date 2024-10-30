@@ -8,6 +8,7 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { TableComponent } from '../../components/table/table.component';
 
 interface TableData {
   nome: string;
@@ -30,6 +31,7 @@ interface TableData {
     FormsModule,       // Add FormsModule here
     MatLabel,
     MatSelect,
+    TableComponent,
   MatInputModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
@@ -43,6 +45,8 @@ export class HomeComponent implements OnInit {
 
   sortBy: string = '';
   filterBy: string = '';
+  data: TableData[] = [];
+
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -52,12 +56,12 @@ export class HomeComponent implements OnInit {
   loadData(): void {
     const apiUrl = `http://localhost:3300/api/ocr/recuperarEleitores?currentPage=${this.pageNumber}&itemsPerPage=${this.itemsPerPage}&sortBy=${this.sortBy}&filterBy=${this.filterBy}`;
     this.http.get<{ data: TableData[]; total: number }>(apiUrl).subscribe(response => {
-      this.dataSource.data = response.data;
+      this.data = response.data;
       this.totalItems = response.total;
     });
   }
 
-  onPageChange(event: PageEvent): void {
+  onPageChange(event: { pageIndex: number, pageSize: number }): void {
     this.pageNumber = event.pageIndex + 1;
     this.itemsPerPage = event.pageSize;
     this.loadData();
