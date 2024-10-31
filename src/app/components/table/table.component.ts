@@ -31,4 +31,5 @@ export class TableComponent<T> implements OnChanges {
   onPageChange(event: PageEvent): void {
     this.pageChange.emit({ pageIndex: event.pageIndex, pageSize: event.pageSize });
   }
+
 }
