@@ -1,0 +1,12 @@
+<div *ngIf="apiLoaded; else errorTemplate">
+  <google-map [options]="options">
+    <map-marker [position]="markerPosition"
+                [options]="markerOptions"
+                (mapDragend)="onMarkerDragEnd($event)">
+    </map-marker>
+  </google-map>
+</div>
+
+<ng-template #errorTemplate>
+  <p>Problemas no carregamento do mapa!</p>
+</ng-template>
