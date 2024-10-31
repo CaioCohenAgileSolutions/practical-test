@@ -4,15 +4,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from './table.component';
-
-interface TableData {
-  nome: string;
-  identidade: string;
-  votou: boolean;
-  mesa: string;
-  idMesa: string;
-  voteImage: string;
-}
+import { TableData } from '../../models/TableData';
 
 // Sample data for demonstration
 export const TableDataExample: TableData[] = [

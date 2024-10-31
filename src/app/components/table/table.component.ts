@@ -25,6 +25,7 @@ export class TableComponent<T> implements OnChanges {
     if (changes['data'] && this.data) {
       // Update data source whenever input data changes
       this.dataSource.data = this.data;
+
     }
   }
 

@@ -9,6 +9,7 @@ import { MatOption, MatSelect } from '@angular/material/select';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { TableComponent } from '../../components/table/table.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 interface TableData {
@@ -31,6 +32,7 @@ interface TableData {
     MatIcon,
     FormsModule,       // Add FormsModule here
     MatLabel,
+    MatButtonModule,
     MatSelect,
     TableComponent,
   MatInputModule],
