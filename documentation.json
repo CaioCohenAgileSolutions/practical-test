@@ -2,6 +2,61 @@
     "pipes": [],
     "interfaces": [
         {
+            "name": "MapOptions",
+            "id": "interface-MapOptions-374c06999baa84b57842f4cf8c56042443c4ddb886e3be7f7b2451b3e761a0f1f6bb6d5cb640a1db158cb1a8d50104d8e3b7e192c75e7ff43ec33602e2612152",
+            "file": "src/app/models/mapOptions.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "export interface MapOptions {\r\n  lat: number;\r\n  lng: number;\r\n  zoom: number;\r\n  draggable: boolean;\r\n}\r\n",
+            "properties": [
+                {
+                    "name": "draggable",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                },
+                {
+                    "name": "lat",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 2
+                },
+                {
+                    "name": "lng",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 3
+                },
+                {
+                    "name": "zoom",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 4
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 171,
+            "methods": [],
+            "extends": []
+        },
+        {
             "name": "TableData",
             "id": "interface-TableData-43ad8e70d13394711804e0dfeb92b9cb068f3fbd9fcede113f7b13887db43a552d79478b704d1e712d0fbaaae892f8857affb55d43c3fc92bf060e773816f284",
             "file": "src/app/main/home/home.component.ts",
@@ -110,7 +165,7 @@
     "components": [
         {
             "name": "AboutComponent",
-            "id": "component-AboutComponent-ec9e487eaa5142811da38de632a1d8bf8c6a377816a059acd6a0d24e3415b9cc7d039bfe0a31fc1fbd5b5cb1dfabb26763f6a22a58898d3a7f40281ff70fc407",
+            "id": "component-AboutComponent-332545357f03306e4abab790312e8aa650ff2abc9650c7581189de64d9e7b6d17e115bf0ce3ac5b7fc0184c236aabde5992ae4c53697ff8558d4a15aab732e1c",
             "file": "src/app/main/about/about.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -127,24 +182,41 @@
             "hostDirectives": [],
             "inputsClass": [],
             "outputsClass": [],
-            "propertiesClass": [],
+            "propertiesClass": [
+                {
+                    "name": "mapOptions",
+                    "defaultValue": "{\r\n    lat: -20.940,\r\n    lng: -43.3493045,\r\n    zoom: 12,\r\n    draggable: true\r\n  }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "MapOptions",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                }
+            ],
             "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
             "hostListeners": [],
             "standalone": true,
-            "imports": [],
+            "imports": [
+                {
+                    "name": "GmapComponent",
+                    "type": "component"
+                }
+            ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\r\n\r\n@Component({\r\n  selector: 'app-about',\r\n  standalone: true,\r\n  imports: [],\r\n  templateUrl: './about.component.html',\r\n  styleUrl: './about.component.scss'\r\n})\r\nexport class AboutComponent {\r\n\r\n}\r\n",
+            "sourceCode": "import { Component } from '@angular/core';\r\nimport { GmapComponent } from '../../components/gmap/gmap.component';\r\nimport { MapOptions } from '../../models/mapOptions';\r\n\r\n@Component({\r\n  selector: 'app-about',\r\n  standalone: true,\r\n  imports: [GmapComponent],\r\n  templateUrl: './about.component.html',\r\n  styleUrl: './about.component.scss'\r\n})\r\nexport class AboutComponent {\r\n\r\n  mapOptions: MapOptions = {\r\n    lat: -20.940,\r\n    lng: -43.3493045,\r\n    zoom: 12,\r\n    draggable: true\r\n  };\r\n\r\n}\r\n",
             "styleUrl": "./about.component.scss",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<p>about works!</p>\r\n"
+            "templateData": "<app-gmap [mapOptions]=\"mapOptions\"></app-gmap>\r\n"
         },
         {
             "name": "AppComponent",
@@ -337,6 +409,254 @@
                     }
                 }
             }
+        },
+        {
+            "name": "GmapComponent",
+            "id": "component-GmapComponent-c104c12f88deb28a5825a12ee463e4938e0aeef9a0839ea71caf269eb8034570e9f80ceb3f0f8af4cba144c5a5e640cc46c3e9c21b6ac0f83a6a14248cd87935",
+            "file": "src/app/components/gmap/gmap.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-gmap",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./gmap.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "mapOptions",
+                    "defaultValue": "{\r\n    lat: 40.73061,\r\n    lng: -73.935242,\r\n    zoom: 12,\r\n    draggable: true\r\n  }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 21,
+                    "type": "MapOptions",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "apiLoaded",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                },
+                {
+                    "name": "markerOptions",
+                    "defaultValue": "{ draggable: this.mapOptions.draggable }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "google.maps.MarkerOptions",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 34
+                },
+                {
+                    "name": "markerPosition",
+                    "defaultValue": "{ lat: this.mapOptions.lat, lng: this.mapOptions.lng }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "google.maps.LatLngLiteral",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 33
+                },
+                {
+                    "name": "options",
+                    "defaultValue": "{\r\n    center: { lat: this.mapOptions.lat, lng: this.mapOptions.lng },\r\n    zoom: this.mapOptions.zoom,\r\n  }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "google.maps.MapOptions",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 28
+                },
+                {
+                    "name": "optionsLoaded",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "loadGoogleMapsApi",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 49,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "navigateToLocation",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 77,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnChanges",
+                    "args": [
+                        {
+                            "name": "changes",
+                            "type": "SimpleChanges",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 43,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "changes",
+                            "type": "SimpleChanges",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 39,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onMarkerDragEnd",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "google.maps.MapMouseEvent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 73,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "google.maps.MapMouseEvent",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "updateMapOptions",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 64,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "GoogleMapsModule",
+                    "type": "module"
+                },
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                },
+                {
+                    "name": "HttpClientModule",
+                    "type": "module"
+                },
+                {
+                    "name": "HttpClientJsonpModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';\r\nimport { HttpClient, HttpClientModule, HttpClientJsonpModule } from '@angular/common/http'; // Import HttpClientModule\r\nimport { GoogleMapsModule } from '@angular/google-maps';\r\nimport { CommonModule } from '@angular/common';\r\nimport { environment } from '../../../environments/environment';\r\nimport { Observable, of } from 'rxjs';\r\nimport { catchError, map } from 'rxjs/operators';\r\nimport { MapOptions } from '../../models/mapOptions';\r\n\r\n@Component({\r\n  selector: 'app-gmap',\r\n  standalone: true,\r\n  imports: [GoogleMapsModule, CommonModule, HttpClientModule, HttpClientJsonpModule],\r\n  templateUrl: './gmap.component.html',\r\n  styleUrl: './gmap.component.scss'\r\n})\r\nexport class GmapComponent implements OnInit, OnChanges {\r\n  apiLoaded = false;\r\n  optionsLoaded = true;\r\n\r\n  @Input() mapOptions: MapOptions = {\r\n    lat: 40.73061,\r\n    lng: -73.935242,\r\n    zoom: 12,\r\n    draggable: true\r\n  };\r\n\r\n  options: google.maps.MapOptions = {\r\n    center: { lat: this.mapOptions.lat, lng: this.mapOptions.lng },\r\n    zoom: this.mapOptions.zoom,\r\n  };\r\n\r\n  markerPosition: google.maps.LatLngLiteral = { lat: this.mapOptions.lat, lng: this.mapOptions.lng };\r\n  markerOptions: google.maps.MarkerOptions = { draggable: this.mapOptions.draggable };\r\n\r\n  constructor(private httpClient: HttpClient) {    \r\n  }\r\n\r\n  ngOnInit(): void {\r\n    this.loadGoogleMapsApi();\r\n  }\r\n\r\n  ngOnChanges(changes: SimpleChanges): void {\r\n    if (changes['mapOptions']) {\r\n      this.updateMapOptions();\r\n    }\r\n  }\r\n\r\n  loadGoogleMapsApi(): void {\r\n    this.httpClient\r\n      .jsonp(`https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsApiKey}`, 'callback')\r\n      .subscribe({\r\n        next: () => {\r\n          this.apiLoaded = true;\r\n          console.log('Google Maps API loaded successfully.');\r\n        },\r\n        error: (error) => {\r\n          this.apiLoaded = false;\r\n          console.error('Error loading Google Maps API:', error);\r\n        }\r\n      });\r\n  }\r\n\r\n  updateMapOptions(): void {\r\n    this.options = {\r\n      center: { lat: this.mapOptions.lat, lng: this.mapOptions.lng },\r\n      zoom: this.mapOptions.zoom,\r\n    };\r\n    this.markerPosition = { lat: this.mapOptions.lat, lng: this.mapOptions.lng };\r\n    this.markerOptions = { draggable: this.mapOptions.draggable };\r\n  }\r\n\r\n  onMarkerDragEnd(event: google.maps.MapMouseEvent) {\r\n    console.log('Marker dragged to:', event.latLng?.toJSON());\r\n  }\r\n\r\n  navigateToLocation() {\r\n    console.log('Navigating to location...');\r\n  }\r\n}\r\n",
+            "styleUrl": "./gmap.component.scss",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "httpClient",
+                        "type": "HttpClient",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 34,
+                "jsdoctags": [
+                    {
+                        "name": "httpClient",
+                        "type": "HttpClient",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "implements": [
+                "OnInit",
+                "OnChanges"
+            ],
+            "templateData": "<div *ngIf=\"apiLoaded; else errorTemplate\">\n  <google-map [options]=\"options\">\n    <map-marker [position]=\"markerPosition\"\n                [options]=\"markerOptions\"\n                (mapDragend)=\"onMarkerDragEnd($event)\">\n    </map-marker>\n  </google-map>\n</div>\n\n<ng-template #errorTemplate>\n  <p>Problemas no carregamento do mapa!</p>\n</ng-template>\n"
         },
         {
             "name": "HeaderComponent",
@@ -914,7 +1234,7 @@
         },
         {
             "name": "TableComponent",
-            "id": "component-TableComponent-7e679f0e2bc736d7372af3b5565558d08038a9a1c3b205a1fec12a619c16feb1827d211526cee3d8dac611431c6232324b335e72e2f3e8d1b52ddd7c44b957cb",
+            "id": "component-TableComponent-9c286bd52889ae7e62861662464a3ad254085526944e17dc874108de761ad08727c056ba4b2c0c3c20eb3c2deca051b00f0cd96a0863925723c90fe1778418cf",
             "file": "src/app/components/table/table.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1072,7 +1392,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';\r\nimport { CommonModule } from '@angular/common'; // Import CommonModule\r\nimport { MatTableDataSource } from '@angular/material/table';\r\nimport { MatPaginatorModule, PageEvent } from '@angular/material/paginator';\r\nimport { MatTableModule } from '@angular/material/table';\r\n\r\n@Component({\r\n  selector: 'app-table',\r\n  standalone: true,\r\n  imports: [MatTableModule, MatPaginatorModule, CommonModule],\r\n  templateUrl: './table.component.html',\r\n  styleUrls: ['./table.component.scss']\r\n})\r\nexport class TableComponent<T> implements OnChanges {\r\n  @Input() data: T[] = [];\r\n  @Input() totalItems: number = 0;\r\n  @Input() itemsPerPage: number = 10;\r\n  @Input() displayedColumns: string[] = []; // Array of column keys to display\r\n\r\n  @Output() pageChange = new EventEmitter<{ pageIndex: number, pageSize: number }>();\r\n\r\n  dataSource = new MatTableDataSource<T>([]);\r\n\r\n  ngOnChanges(changes: SimpleChanges): void {\r\n    if (changes['data'] && this.data) {\r\n      // Update data source whenever input data changes\r\n      this.dataSource.data = this.data;\r\n    }\r\n  }\r\n\r\n  onPageChange(event: PageEvent): void {\r\n    this.pageChange.emit({ pageIndex: event.pageIndex, pageSize: event.pageSize });\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';\r\nimport { CommonModule } from '@angular/common'; // Import CommonModule\r\nimport { MatTableDataSource } from '@angular/material/table';\r\nimport { MatPaginatorModule, PageEvent } from '@angular/material/paginator';\r\nimport { MatTableModule } from '@angular/material/table';\r\n\r\n@Component({\r\n  selector: 'app-table',\r\n  standalone: true,\r\n  imports: [MatTableModule, MatPaginatorModule, CommonModule],\r\n  templateUrl: './table.component.html',\r\n  styleUrls: ['./table.component.scss']\r\n})\r\nexport class TableComponent<T> implements OnChanges {\r\n  @Input() data: T[] = [];\r\n  @Input() totalItems: number = 0;\r\n  @Input() itemsPerPage: number = 10;\r\n  @Input() displayedColumns: string[] = []; // Array of column keys to display\r\n\r\n  @Output() pageChange = new EventEmitter<{ pageIndex: number, pageSize: number }>();\r\n\r\n  dataSource = new MatTableDataSource<T>([]);\r\n\r\n  ngOnChanges(changes: SimpleChanges): void {\r\n    if (changes['data'] && this.data) {\r\n      // Update data source whenever input data changes\r\n      this.dataSource.data = this.data;\r\n    }\r\n  }\r\n\r\n  onPageChange(event: PageEvent): void {\r\n    this.pageChange.emit({ pageIndex: event.pageIndex, pageSize: event.pageSize });\r\n  }\r\n\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1100,6 +1420,16 @@
                 "deprecationMessage": "",
                 "type": "ApplicationConfig",
                 "defaultValue": "{\r\n  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync()]\r\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  production: false,\r\n  googleMapsApiKey: 'AIzaSyC7KCLJb-0nGBbDiTTdlaD6fAAyiJWw9cE',\r\n}"
             }
         ],
         "functions": [],
@@ -1117,6 +1447,18 @@
                     "type": "ApplicationConfig",
                     "defaultValue": "{\r\n  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync()]\r\n}"
                 }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: false,\r\n  googleMapsApiKey: 'AIzaSyC7KCLJb-0nGBbDiTTdlaD6fAAyiJWw9cE',\r\n}"
+                }
             ]
         },
         "groupedFunctions": {},
@@ -1125,7 +1467,7 @@
     },
     "routes": [],
     "coverage": {
-        "count": 7,
+        "count": 5,
         "status": "low",
         "files": [
             {
@@ -1145,6 +1487,15 @@
                 "name": "appConfig",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/gmap/gmap.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "GmapComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/14",
                 "status": "low"
             },
             {
@@ -1171,7 +1522,7 @@
                 "linktype": "component",
                 "name": "AboutComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/2",
                 "status": "low"
             },
             {
@@ -1190,6 +1541,25 @@
                 "name": "TableData",
                 "coveragePercent": 0,
                 "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/models/mapOptions.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "MapOptions",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
