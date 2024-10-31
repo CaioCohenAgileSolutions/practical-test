@@ -24,6 +24,8 @@ mat-toolbar {
   z-index: 10; // Raise it above other content when open
 }
 
+
+
 .example-sidenav {
   padding: 20px;
   max-width: 20vw;
@@ -49,15 +51,15 @@ mat-nav-list {
   flex-direction: column;
 }
 
-mat-card-header{
-    padding: 10px;
+mat-card-header {
+  padding: 10px;
+  color: #403f3f;
 
-  mat-icon{
-      height: 100%;
-      width: auto;
-      font-size: 3rem;
+  mat-icon {
+    height: 100%;
+    width: auto;
+    font-size: 3rem;
   }
-
 }
 
 mat-nav-list {
@@ -72,4 +74,49 @@ mat-nav-list {
     background-color: #fbe4ec;
   }
 }
+
+/* Sidebar (Drawer) */
+.drawer {
+  position: fixed;
+  top: 0;
+  left: -250px; /* Hidden by default */
+  width: 250px;
+  height: 100vh;
+  background-color: white;
+  color: #fff;
+  overflow-y: auto;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.drawer-open {
+  left: 0; /* Slide in */
+}
+
+.drawer-content {
+  padding-top: 56px; /* Offset for toolbar */
+  background-color: white;
+}
+
+.user-card {
+  margin: 16px;
+  background-color: white;
+}
+
+.user-icon {
+  font-size: 40px;
+  margin-right: 10px;
+}
+
+/* Drawer Backdrop */
+.drawer-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999; /* Behind the drawer */
+}
+
 

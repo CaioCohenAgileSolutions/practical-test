@@ -6,20 +6,19 @@ import { RouterModule } from '@angular/router';
 import { MatDrawerContainer, MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatNavList } from '@angular/material/list';
 import { MatCard, MatCardHeader, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true, // Indica que é um componente standalone
-  imports: [MatToolbarModule,MatCard,MatCardHeader,MatCardTitle,MatCardSubtitle, MatButtonModule, MatSidenavModule, MatIconModule, MatNavList, RouterModule], // Inclua os módulos necessários
+  imports: [MatToolbarModule,MatCard,MatCardHeader,MatCardTitle,MatCardSubtitle, MatButtonModule, MatSidenavModule, MatIconModule, MatNavList, RouterModule, CommonModule], // Inclua os módulos necessários
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  @ViewChild(MatDrawerContainer) drawerContainer!: MatDrawerContainer;
-  showFiller = false;
-  zIndexToggled = -1;
+  isDrawerOpen = false;
 
-  changeZIndex() {
-    this.zIndexToggled *= -1;
+  toggleDrawer() {
+    this.isDrawerOpen = !this.isDrawerOpen;
   }
 }

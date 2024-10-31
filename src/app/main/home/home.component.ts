@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,6 +9,7 @@ import { MatOption, MatSelect } from '@angular/material/select';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { TableComponent } from '../../components/table/table.component';
+
 
 interface TableData {
   nome: string;
@@ -42,12 +43,16 @@ export class HomeComponent implements OnInit {
   totalItems = 0;
   itemsPerPage = 10;
   pageNumber = 1;
+  cols: number = 3;
+
 
   sortBy: string = '';
   filterBy: string = '';
   data: TableData[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.adjustGridCols(window.innerWidth);
+  }
 
   ngOnInit(): void {
     this.loadData();
@@ -70,5 +75,14 @@ export class HomeComponent implements OnInit {
   onSearch(): void {
     this.pageNumber = 1; // Reset to first page on search
     this.loadData();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.adjustGridCols(event.target.innerWidth);
+  }
+
+  private adjustGridCols(width: number) {
+    this.cols = width < 600 ? 1 : 3; // Use 1 column for mobile, 3 for larger screens
   }
 }

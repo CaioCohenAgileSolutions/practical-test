@@ -1,0 +1,13 @@
+.table-container {
+  padding: 16px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+table {
+  width: 100%; // Ensures table columns expand to take available width
+  min-width: 600px; // Set a min-width that works for your columns
+}
