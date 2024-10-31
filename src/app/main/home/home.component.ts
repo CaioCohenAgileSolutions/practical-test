@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
   }
 
   loadData(): void {
-    const apiUrl = `http://localhost:3300/api/ocr/recuperarEleitores?currentPage=${this.pageNumber}&itemsPerPage=${this.itemsPerPage}&sortBy=${this.sortBy}&filterBy=${this.filterBy}`;
+    const apiUrl = `http://localhost:3300/api/recuperarEleitores?currentPage=${this.pageNumber}&itemsPerPage=${this.itemsPerPage}&sortBy=${this.sortBy}&filterBy=${this.filterBy}`;
     this.http.get<{ data: TableData[]; total: number }>(apiUrl).subscribe(response => {
       this.data = response.data;
       this.totalItems = response.total;
